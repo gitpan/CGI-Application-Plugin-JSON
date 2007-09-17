@@ -5,7 +5,7 @@ use JSON qw(jsonToObj);
 use lib 't/lib';
 use MyApp;
 
-plan(tests => 17);
+plan(tests => 21);
 
 $ENV{'CGI_APP_RETURN_ONLY'} = 1;
 
@@ -56,6 +56,20 @@ $ENV{'CGI_APP_RETURN_ONLY'} = 1;
     is_deeply($json, { foo => 'blah', baz => 'stuff', bar => 'more_stuff'});
 }
 
+# 18-21
+# json_callback
+{
+    my $app = MyBase::MyApp->new( QUERY => CGI->new({ rm => 'test_callback' }) );
+    my $output = $app->run();
+    my ($json) = ($output =~ /X-JSON: (.*)/i);
+    ok(!$json, 'json_callback has no X-JSON header');
+    like($output, qr/Content-type: text\/javascript/i, 'right content type');
+    ($json) = ($output =~ /my_callback\(.*(?={)(.*)\)/);
+    $json = jsonToObj($json);
+    ok($json, 'has JSON structure');
+    is_deeply($json, { foo => 'blah', baz => 'stuff', bar => 'more_stuff'});
+}
+
 # has 2 tests
 sub _get_json_data {
     my $app = shift;
@@ -66,8 +80,3 @@ sub _get_json_data {
     is( ref $data, 'HASH', 'JSON data is a hash');
     return $data;
 }
-
-
-
-
-

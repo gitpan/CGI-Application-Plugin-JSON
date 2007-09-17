@@ -10,6 +10,7 @@ sub setup {
         test_add
         test_clear
         test_body
+        test_callback
     )]);
 
     $self->start_mode('test_json');
@@ -40,6 +41,18 @@ sub test_clear {
 sub test_body {
     my $self = shift;
     return $self->json_body(
+      {
+        foo => 'blah',
+        baz => 'stuff',
+        bar => 'more_stuff',
+      }
+    );
+}
+
+sub test_callback {
+    my $self = shift;
+    return $self->json_callback(
+       'my_callback',
       {
         foo => 'blah',
         baz => 'stuff',

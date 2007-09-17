@@ -21,6 +21,9 @@ SYNOPSIS
         # or send the JSON in the document body
         $self->json_body( { foo => 'Lorem ipsum', bar => [ 0, 2, 3 ] } );
 
+        # send the JSON back in the document body, but execute it using a Javascript callback
+        $self->json_callback('alert', { foo => 'Lorem ipsum', bar => [ 0, 2, 3 ] } );
+
 DESCRIPTION
     When communicating with client-side JavaScript, it is common to send
     data in "X-JSON" HTTP headers or through the document body as
@@ -79,7 +82,16 @@ BODY METHODS
 
         return $self->json_body({ foo => 'stuff', bar => [0,1,2,3]} );
 
-MISC METHODS
+  json_callback
+    This method will take the given Perl structure, turn it into JSON, set
+    the appropriate content-type, and then return a Javascript snippet where
+    the given callback is called with the resulting JSON.
+
+        return $self->json_callback('alert', { foo => 'stuff', bar => [0,1,2,3]} );
+
+        # would result in something like the following being sent to the client
+        alert({ foo => 'stuff', bar => [0,1,2,3]});
+
   to_json
     This method is just a convenient wrapper around JSON's "objToJson".
 

@@ -2,14 +2,15 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
+          'PL_FILES' => {},
+          'INSTALLDIRS' => 'site',
           'NAME' => 'CGI::Application::Plugin::JSON',
+          'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/CGI/Application/Plugin/JSON.pm',
           'PREREQ_PM' => {
+                           'Test::More' => 0,
                            'CGI::Application' => '4',
-                           'JSON' => '0',
-                           'Test::More' => '0'
-                         },
-          'INSTALLDIRS' => 'site',
-          'PL_FILES' => {}
+                           'JSON' => 0
+                         }
         )
 ;

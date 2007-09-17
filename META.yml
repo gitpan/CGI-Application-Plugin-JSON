@@ -1,8 +1,21 @@
---- #YAML:1.0
+---
 name: CGI-Application-Plugin-JSON
-version: 0.2
+version: 0.3
 author:
-  - Michael Peters <mpeters@plusthree.com>
+  - 'Michael Peters <mpeters@plusthree.com>'
 abstract: easy manipulation of JSON headers
 license: perl
-generated_by: Module::Build version 0.2611, without YAML.pm
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  CGI::Application: 4
+  JSON: 0
+  Test::More: 0
+provides:
+  CGI::Application::Plugin::JSON:
+    file: lib/CGI/Application/Plugin/JSON.pm
+    version: 0.3
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

@@ -1,5 +1,11 @@
 Revision history for CGI::Application::Plugin::JSON
 
+0.03    Sept 17, 2007
+    - added json_callback() method
+
+0.02    Sept 23, 2006
+    - Tidied up docs and released to CPAN
+
 0.01    Sept 14, 2006
     - First version, released on an unsuspecting world.
 

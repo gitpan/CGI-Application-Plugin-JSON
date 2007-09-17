@@ -9,6 +9,7 @@ our @EXPORT_OK = qw(
     from_json
     json_header 
     json_body
+    json_callback
     add_json_header 
     clear_json_header 
     json_header_string 
@@ -23,7 +24,7 @@ CGI::Application::Plugin::JSON - easy manipulation of JSON headers
 
 =cut
 
-our $VERSION = '0.2';
+our $VERSION = '0.3';
 
 =head1 SYNOPSIS
 
@@ -45,6 +46,9 @@ our $VERSION = '0.2';
 
     # or send the JSON in the document body
     $self->json_body( { foo => 'Lorem ipsum', bar => [ 0, 2, 3 ] } );
+
+    # send the JSON back in the document body, but execute it using a Javascript callback
+    $self->json_callback('alert', { foo => 'Lorem ipsum', bar => [ 0, 2, 3 ] } );
 
 =head1 DESCRIPTION
 
@@ -178,6 +182,27 @@ sub json_body {
     return $self->to_json($data);
 }
 
+=head2 json_callback
+
+This method will take the given Perl structure, turn it
+into JSON, set the appropriate content-type, and then
+return a Javascript snippet where the given callback
+is called with the resulting JSON.
+
+    return $self->json_callback('alert', { foo => 'stuff', bar => [0,1,2,3]} );
+
+    # would result in something like the following being sent to the client
+    alert({ foo => 'stuff', bar => [0,1,2,3]});
+
+=cut
+
+sub json_callback {
+    my ($self, $callback, $data) = @_;
+    my $private = $self->param('__CAP_JSON') || {};
+    $private->{json_callback} = 1;
+    $self->param(__CAP_JSON => $private);
+    return $callback . '(' . $self->to_json($data) . ')';
+}
 =head1 MISC METHODS
 
 =head2 to_json
@@ -219,6 +244,8 @@ sub _send_headers {
 
     if( defined $private->{json_body} ) {
         $self->header_add('-type' => 'text/x-json');
+    } elsif ( defined $private->{json_callback} ) {
+        $self->header_add('-type' => 'text/javascript');
     }
 }
 
