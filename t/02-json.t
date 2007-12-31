@@ -1,7 +1,7 @@
 use Test::More;
 use strict;
 use CGI;
-use JSON qw(jsonToObj);
+use JSON::Any;
 use lib 't/lib';
 use MyApp;
 
@@ -51,7 +51,7 @@ $ENV{'CGI_APP_RETURN_ONLY'} = 1;
     ok(!$json, 'json_body has no X-JSON header');
     like($output, qr/Content-type: text\/x-json/i, 'right content type');
     ($json) = ($output =~ /.*(?={)(.*)/);
-    $json = jsonToObj($json);
+    $json = JSON::Any->decode($json);
     ok($json, 'has JSON body');
     is_deeply($json, { foo => 'blah', baz => 'stuff', bar => 'more_stuff'});
 }
@@ -65,7 +65,7 @@ $ENV{'CGI_APP_RETURN_ONLY'} = 1;
     ok(!$json, 'json_callback has no X-JSON header');
     like($output, qr/Content-type: text\/javascript/i, 'right content type');
     ($json) = ($output =~ /my_callback\(.*(?={)(.*)\)/);
-    $json = jsonToObj($json);
+    $json = JSON::Any->decode($json);
     ok($json, 'has JSON structure');
     is_deeply($json, { foo => 'blah', baz => 'stuff', bar => 'more_stuff'});
 }
@@ -76,7 +76,7 @@ sub _get_json_data {
     my $output = $app->run();
     my ($json) = ($output =~ /X-JSON: (.*)/i);
     ok($json, 'has X-JSON header');
-    my $data = jsonToObj($json);
+    my $data = JSON::Any->decode($json);
     is( ref $data, 'HASH', 'JSON data is a hash');
     return $data;
 }

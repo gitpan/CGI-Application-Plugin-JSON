@@ -1,7 +1,7 @@
 package CGI::Application::Plugin::JSON;
 use warnings;
 use strict;
-use JSON qw(objToJson jsonToObj);
+use JSON::Any;
 use base 'Exporter';
 
 our @EXPORT_OK = qw(
@@ -24,7 +24,7 @@ CGI::Application::Plugin::JSON - easy manipulation of JSON headers
 
 =cut
 
-our $VERSION = '0.3';
+our $VERSION = '1.00';
 
 =head1 SYNOPSIS
 
@@ -207,24 +207,24 @@ sub json_callback {
 
 =head2 to_json
 
-This method is just a convenient wrapper around L<JSON>'s C<objToJson>.
+This method is just a convenient wrapper around L<JSON::Any>'s C<encode>.
 
 =cut
 
 sub to_json {
     my ($self, $data) = @_;
-    return objToJson($data);
+    return JSON::Any->encode($data);
 }
 
 =head2 from_json
 
-This method is just a convenient wrapper around L<JSON>'s C<jsonToObj>.
+This method is just a convenient wrapper around L<JSON::Any>'s C<decode>.
 
 =cut
 
 sub from_json {
     my ($self, $data) = @_;
-    return jsonToObj($data);
+    return JSON::Any->decode($data);
 }
 
 sub import {

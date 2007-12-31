@@ -1,6 +1,6 @@
 ---
 name: CGI-Application-Plugin-JSON
-version: 0.3
+version: 1.00
 author:
   - 'Michael Peters <mpeters@plusthree.com>'
 abstract: easy manipulation of JSON headers
@@ -9,12 +9,12 @@ resources:
   license: http://dev.perl.org/licenses/
 requires:
   CGI::Application: 4
-  JSON: 0
+  JSON::Any: 1.14
   Test::More: 0
 provides:
   CGI::Application::Plugin::JSON:
     file: lib/CGI/Application/Plugin/JSON.pm
-    version: 0.3
+    version: 1.00
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

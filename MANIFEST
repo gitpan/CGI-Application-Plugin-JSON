@@ -8,6 +8,5 @@ README
 t/00-pod.t
 t/01-pod-coverage.t
 t/02-json.t
-t/lib/.MyApp.pm.swp
 t/lib/MyApp.pm
 TODO

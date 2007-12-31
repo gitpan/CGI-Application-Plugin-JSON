@@ -10,7 +10,7 @@ WriteMakefile
           'PREREQ_PM' => {
                            'Test::More' => 0,
                            'CGI::Application' => '4',
-                           'JSON' => 0
+                           'JSON::Any' => '1.14'
                          }
         )
 ;

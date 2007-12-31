@@ -1,5 +1,11 @@
 Revision history for CGI::Application::Plugin::JSON
 
+1.00
+        Dec 31, 2007
+    - using JSON::Any instead of just JSON so I don't have to worry about
+        API changes and you can use faster JSON implementations (JSON::Syck, JSON::XS)
+        if you have them installed
+
 0.03    Sept 17, 2007
     - added json_callback() method
 
