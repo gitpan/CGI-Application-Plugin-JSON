@@ -12,7 +12,10 @@ my $builder = Module::Build->new(
         'CGI::Application' => 4.00,
         'JSON::Any'        => 1.14,
     },
-    create_makefile_pl  => 'traditional',
+    build_requires => {
+        JSON => '2.02',
+    },
+    create_makefile_pl  => 'passthrough',
     create_readme       => 1,
 );
 

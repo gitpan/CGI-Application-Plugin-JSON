@@ -1,7 +1,11 @@
 Revision history for CGI::Application::Plugin::JSON
 
-1.00
-        Dec 31, 2007
+1.01 Jan 03, 2007
+    - Functionally the same as 1.00, but made some changes to Build.PL
+      so that it installs even if there are no JSON modules but JSON::Any
+      is installed
+
+1.00 Dec 31, 2007
     - using JSON::Any instead of just JSON so I don't have to worry about
         API changes and you can use faster JSON implementations (JSON::Syck, JSON::XS)
         if you have them installed
