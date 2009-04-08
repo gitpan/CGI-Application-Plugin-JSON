@@ -27,7 +27,7 @@ SYNOPSIS
 DESCRIPTION
     When communicating with client-side JavaScript, it is common to send
     data in "X-JSON" HTTP headers or through the document body as
-    content-type "text/x-json".
+    content-type "application/json".
 
     This plugin adds a couple of convenience methods to make that just a
     little bit easier.

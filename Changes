@@ -1,5 +1,9 @@
 Revision history for CGI::Application::Plugin::JSON
 
+1.02 Apr 08, 2009
+    - Change the content-type to be application/json instead of text/x-json
+        [frioux@gmail.com and M. Peters]
+
 1.01 Jan 03, 2007
     - Functionally the same as 1.00, but made some changes to Build.PL
       so that it installs even if there are no JSON modules but JSON::Any

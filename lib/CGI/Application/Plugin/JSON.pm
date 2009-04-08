@@ -24,7 +24,7 @@ CGI::Application::Plugin::JSON - easy manipulation of JSON headers
 
 =cut
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 =head1 SYNOPSIS
 
@@ -54,7 +54,7 @@ our $VERSION = '1.01';
 
 When communicating with client-side JavaScript, it is common to send
 data in C<X-JSON> HTTP headers or through the document body as content-type
-C<text/x-json>.
+C<application/json>.
 
 This plugin adds a couple of convenience methods to make that just a 
 little bit easier.
@@ -243,7 +243,7 @@ sub _send_headers {
     }
 
     if( defined $private->{json_body} ) {
-        $self->header_add('-type' => 'text/x-json');
+        $self->header_add('-type' => 'application/json');
     } elsif ( defined $private->{json_callback} ) {
         $self->header_add('-type' => 'text/javascript');
     }

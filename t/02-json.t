@@ -49,7 +49,7 @@ $ENV{'CGI_APP_RETURN_ONLY'} = 1;
     my $output = $app->run();
     my ($json) = ($output =~ /X-JSON: (.*)/i);
     ok(!$json, 'json_body has no X-JSON header');
-    like($output, qr/Content-type: text\/x-json/i, 'right content type');
+    like($output, qr/Content-type: application\/json/i, 'right content type');
     ($json) = ($output =~ /.*(?={)(.*)/);
     $json = JSON::Any->decode($json);
     ok($json, 'has JSON body');
